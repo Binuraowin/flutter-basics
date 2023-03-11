@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_basics/constants.dart';
 
 class MainPage extends StatefulWidget {
@@ -11,6 +9,8 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  int height = 150;
+  int weight = 70;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,20 +64,26 @@ class _MainPageState extends State<MainPage> {
                           style: KInputLableTextStyle,
                         ),
                         Row(
-                          children: const [
+                          children: [
                             FloatingActionButton(
-                              onPressed: null,
-                              child: Icon(
+                              onPressed: () {
+                                height--;
+                                print("on remove clicked");
+                              },
+                              child: const Icon(
                                 Icons.remove,
                                 size: 40,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 10,
                             ),
                             FloatingActionButton(
-                              onPressed: null,
-                              child: Icon(
+                              onPressed: () {
+                                height++;
+                                print('on add clicked');
+                              },
+                              child: const Icon(
                                 Icons.add,
                                 size: 40,
                               ),
@@ -98,20 +104,24 @@ class _MainPageState extends State<MainPage> {
                           style: KInputLableTextStyle,
                         ),
                         Row(
-                          children: const [
+                          children: [
                             FloatingActionButton(
-                              onPressed: null,
-                              child: Icon(
+                              onPressed: () {
+                                weight--;
+                              },
+                              child: const Icon(
                                 Icons.remove,
                                 size: 40,
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 10,
                             ),
                             FloatingActionButton(
-                              onPressed: null,
-                              child: Icon(
+                              onPressed: () {
+                                weight++;
+                              },
+                              child: const Icon(
                                 Icons.add,
                                 size: 40,
                               ),
