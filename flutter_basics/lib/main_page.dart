@@ -12,6 +12,7 @@ class _MainPageState extends State<MainPage> {
   int height = 150;
   int weight = 70;
   late double bmi = calculateBMI(height: height, weight: weight);
+  String gender = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,29 +24,59 @@ class _MainPageState extends State<MainPage> {
             children: [
               Row(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: const [
-                        Icon(
-                          Icons.male,
-                          size: 150,
-                        ),
-                        Text("Male"),
-                      ],
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        gender = "M";
+                      });
+                    },
+                    child: Container(
+                      height: 200,
+                      width: 175,
+                      decoration: BoxDecoration(
+                        color: gender == "M"
+                            ? Colors.orange.withAlpha(150)
+                            : Colors.orange.withAlpha(50),
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        children: const [
+                          Icon(
+                            Icons.male,
+                            size: 150,
+                          ),
+                          Text("Male"),
+                        ],
+                      ),
                     ),
                   ),
                   const Spacer(),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: const [
-                        Icon(
-                          Icons.female,
-                          size: 150,
-                        ),
-                        Text("Female"),
-                      ],
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        gender = "F";
+                      });
+                    },
+                    child: Container(
+                      height: 200,
+                      width: 175,
+                      decoration: BoxDecoration(
+                        color: gender == "F"
+                            ? Colors.orange.withAlpha(150)
+                            : Colors.orange.withAlpha(50),
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        children: const [
+                          Icon(
+                            Icons.female,
+                            size: 150,
+                          ),
+                          Text("Female"),
+                        ],
+                      ),
                     ),
                   ),
                 ],
