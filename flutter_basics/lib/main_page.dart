@@ -11,6 +11,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   int height = 150;
   int weight = 70;
+  late double bmi = calculateBMI(height: height, weight: weight);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,17 +59,20 @@ class _MainPageState extends State<MainPage> {
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
                       children: [
-                        const Text("Height"),
-                        const Text(
-                          "176",
+                        const Text("Height / Cm"),
+                        Text(
+                          "$height",
                           style: KInputLableTextStyle,
                         ),
                         Row(
                           children: [
                             FloatingActionButton(
                               onPressed: () {
-                                height--;
-                                print("on remove clicked");
+                                setState(() {
+                                  if (height > 100) height--;
+                                  bmi = calculateBMI(
+                                      height: height, weight: weight);
+                                });
                               },
                               child: const Icon(
                                 Icons.remove,
@@ -80,8 +84,11 @@ class _MainPageState extends State<MainPage> {
                             ),
                             FloatingActionButton(
                               onPressed: () {
-                                height++;
-                                print('on add clicked');
+                                setState(() {
+                                  if (height < 220) height++;
+                                  bmi = calculateBMI(
+                                      height: height, weight: weight);
+                                });
                               },
                               child: const Icon(
                                 Icons.add,
@@ -98,16 +105,20 @@ class _MainPageState extends State<MainPage> {
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
                       children: [
-                        const Text("Weight"),
-                        const Text(
-                          "76",
+                        const Text("Weight / Kg"),
+                        Text(
+                          "$weight",
                           style: KInputLableTextStyle,
                         ),
                         Row(
                           children: [
                             FloatingActionButton(
                               onPressed: () {
-                                weight--;
+                                setState(() {
+                                  if (weight > 40) weight--;
+                                  bmi = calculateBMI(
+                                      height: height, weight: weight);
+                                });
                               },
                               child: const Icon(
                                 Icons.remove,
@@ -119,7 +130,11 @@ class _MainPageState extends State<MainPage> {
                             ),
                             FloatingActionButton(
                               onPressed: () {
-                                weight++;
+                                setState(() {
+                                  if (weight < 100) weight++;
+                                  bmi = calculateBMI(
+                                      height: height, weight: weight);
+                                });
                               },
                               child: const Icon(
                                 Icons.add,
@@ -137,12 +152,13 @@ class _MainPageState extends State<MainPage> {
                 height: 50,
               ),
               Column(
-                children: const [
-                  Text("BMI"),
+                children: [
+                  const Text("BMI"),
                   Text(
-                    "22.00",
+                    bmi.toStringAsFixed(2),
                     style: KOutputTextStyle,
                   ),
+                  Text(getResult(bmi))
                 ],
               )
             ],
@@ -150,5 +166,19 @@ class _MainPageState extends State<MainPage> {
         ),
       ),
     );
+  }
+
+  double calculateBMI({required int height, required int weight}) {
+    return (weight / (height * height)) * 10000;
+  }
+
+  String getResult(bmiValue) {
+    if (bmiValue >= 25) {
+      return "OverWeight";
+    } else if (bmiValue >= 18.5) {
+      return "Normal";
+    } else {
+      return "UnderWeight";
+    }
   }
 }
